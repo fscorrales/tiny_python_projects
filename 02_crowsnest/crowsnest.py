@@ -2,7 +2,8 @@
 """
 Author : Fernando Corrales <fscpython@gmail.com>
 Date   : today
-Purpose: Crow's Nest
+Purpose:
+    Create a new output string depending on the inputs to the program
 """
 
 import argparse

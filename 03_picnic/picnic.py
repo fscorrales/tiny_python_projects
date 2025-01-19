@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
 """
 Author : Fernando Corrales <fscpython@gmail.com>
-Date   : today
-Purpose: Picnic game
+Date   : 18-Jan-2025
+Purpose:
+    Write a program that accepts multiple positional arguments
+    Find and alter items in a list
+    Sort and reverse lists
+    Format a list into a new string
 """
 
 import argparse

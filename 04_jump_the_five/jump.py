@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
 """
 Author : Fernando Corrales <fscpython@gmail.com>
-Date   : today
-Purpose: Jump the Five
+Date   : 18-Jan-2025
+Purpose:
+    Use a for loop and a list comprehension to process text, character by character
+    Check if items exist in a dictionary
+    Retrieve values from a dictionary
+    Print a new string with the numbers substituted with their encoded values
 """
 
 import argparse

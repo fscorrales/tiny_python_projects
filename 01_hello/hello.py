@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
 Author: Fernando Corrales <fscpython@gmail.com>
-Purpose: Say hello
+Purpose:
+    Write a Python program to say “Hello, World!”
 """
 
 import argparse
