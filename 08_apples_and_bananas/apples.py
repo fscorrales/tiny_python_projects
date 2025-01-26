@@ -2,10 +2,13 @@
 """
 Author : Fernando Corrales <fscpython@gmail.com>
 Date   : 26-Jan-2025
-Purpose:
+Purpose: Write a Python program called apples.py tha takes some text,
+given as a single positional argument, and replaces all the vowels in
+the text with the given -v or --vowel options (with the default being a)
 """
 
 import argparse
+import os
 
 
 # --------------------------------------------------
@@ -17,27 +20,26 @@ def get_args():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
 
-    parser.add_argument("positional", metavar="str", help="A positional argument")
+    parser.add_argument("text", metavar="text", help="Input text or file")
 
     parser.add_argument(
         "-v",
         "--vowel",
-        help="A named string argument",
-        metavar="str",
+        help="The vowel to substitute",
+        metavar="vowel",
+        choices=list(
+            "aeiou"
+        ),  # Use “choices” to restrict the user to one of the listed vowels.
         type=str,
-        default="",
+        default="a",
     )
 
-    parser.add_argument(
-        "-f",
-        "--file",
-        help="A readable file",
-        metavar="FILE",
-        type=argparse.FileType("r"),
-        default=None,
-    )
+    args = parser.parse_args()
 
-    return parser.parse_args()
+    if os.path.isfile(args.text):
+        args.text = open(args.text).read().rstrip()
+
+    return args
 
 
 # --------------------------------------------------
@@ -45,17 +47,12 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
-    str_arg = args.arg
-    int_arg = args.int
-    file_arg = args.file
-    flag_arg = args.on
-    pos_arg = args.positional
+    text = args.text
 
-    print(f'str_arg = "{str_arg}"')
-    print(f'int_arg = "{int_arg}"')
-    print('file_arg = "{}"'.format(file_arg.name if file_arg else ""))
-    print(f'flag_arg = "{flag_arg}"')
-    print(f'positional = "{pos_arg}"')
+    for v in "aeiou":
+        text = text.replace(v, args.vowel).replace(v.upper(), args.vowel.upper())
+
+    print(text)
 
 
 # --------------------------------------------------
