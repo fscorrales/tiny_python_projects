@@ -46,8 +46,16 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
+
+    lookup = {}
+    for line in args.file:
+        lookup[line[0].upper()] = line.rstrip()
+
     for letter in args.letter:
-        print(letter)
+        if letter.upper() in lookup:
+            print(lookup[letter.upper()])
+        else:
+            print(f'I do not know "{letter}".')
 
 
 # --------------------------------------------------
