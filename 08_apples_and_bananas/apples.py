@@ -48,9 +48,10 @@ def main():
 
     args = get_args()
     text = args.text
+    vowel = args.vowel
 
     for v in "aeiou":
-        text = text.replace(v, args.vowel).replace(v.upper(), args.vowel.upper())
+        text = text.replace(v, vowel).replace(v.upper(), vowel.upper())
 
     print(text)
 
