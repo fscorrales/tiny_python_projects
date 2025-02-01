@@ -48,14 +48,27 @@ def main():
 
 
 # --------------------------------------------------
-def verse(bootle):
-    if bootle > 1:
+def verse(bottle):
+    # next_bottle = bottle - 1
+    # s1 = "" if bottle == 1 else "s"
+    # s2 = "" if next_bottle == 1 else "s"
+    # num_next = "No more" if next_bottle == 0 else next_bottle
+    # return "\n".join(
+    #     [
+    #         f"{bottle} bottle{s1} of beer on the wall,",
+    #         f"{bottle} bottle{s1} of beer,",
+    #         "Take one down, pass it around,",
+    #         f"{num_next} bottle{s2} of beer on the wall!",
+    #     ]
+    # )
+
+    if bottle > 1:
         return "\n".join(
             [
-                f"{bootle} bottles of beer on the wall,",
-                f"{bootle} bottles of beer,",
+                f"{bottle} bottles of beer on the wall,",
+                f"{bottle} bottles of beer,",
                 "Take one down, pass it around,",
-                f"{bootle - 1} {'bottles' if (bootle - 1) > 1 else 'bottle'} of beer on the wall!",
+                f"{bottle - 1} {'bottles' if (bottle - 1) > 1 else 'bottle'} of beer on the wall!",
             ]
         )
     else:
