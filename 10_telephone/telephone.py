@@ -9,6 +9,9 @@ Purpose:
 """
 
 import argparse
+import os
+import random
+import string
 
 
 # --------------------------------------------------
@@ -16,42 +19,41 @@ def get_args():
     """Get command-line arguments"""
 
     parser = argparse.ArgumentParser(
-        description="Rock the Casbah",
+        description="Telephone",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
 
-    parser.add_argument("positional", metavar="str", help="A positional argument")
+    parser.add_argument("text", metavar="text", help="Input text or file")
 
     parser.add_argument(
-        "-a",
-        "--arg",
-        help="A named string argument",
-        metavar="str",
-        type=str,
-        default="",
-    )
-
-    parser.add_argument(
-        "-i",
-        "--int",
-        help="A named integer argument",
-        metavar="int",
+        "-s",
+        "--seed",
+        help="Random seed",
+        metavar="seed",
         type=int,
-        default=0,
-    )
-
-    parser.add_argument(
-        "-f",
-        "--file",
-        help="A readable file",
-        metavar="FILE",
-        type=argparse.FileType("r"),
         default=None,
     )
 
-    parser.add_argument("-o", "--on", help="A boolean flag", action="store_true")
+    parser.add_argument(
+        "-m",
+        "--mutations",
+        help="Percent mutations",
+        metavar="mutations",
+        type=float,
+        default=0.1,
+    )
 
-    return parser.parse_args()
+    args = parser.parse_args()
+
+    # mutations between 0 and 1
+    if args.mutations < 0 or args.mutations > 1:
+        parser.error(f'--mutations "{args.mutations}" must be between 0 and 1')
+
+    if os.path.isfile(args.text):
+        with open(args.text) as file:
+            args.text = file.read().rstrip()
+
+    return args
 
 
 # --------------------------------------------------
@@ -59,17 +61,27 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
-    str_arg = args.arg
-    int_arg = args.int
-    file_arg = args.file
-    flag_arg = args.on
-    pos_arg = args.positional
+    random.seed(args.seed)
 
-    print(f'str_arg = "{str_arg}"')
-    print(f'int_arg = "{int_arg}"')
-    print('file_arg = "{}"'.format(file_arg.name if file_arg else ""))
-    print(f'flag_arg = "{flag_arg}"')
-    print(f'positional = "{pos_arg}"')
+    new_text = args.text
+
+    # Get strings of all the letters and punctuation
+    alpha = "".join(sorted(string.ascii_letters + string.punctuation))
+    # Get the number of mutations
+    num_mutations = round(len(args.text) * args.mutations)
+    # Get the indexes
+    indexes = random.sample(range(len(args.text)), num_mutations)
+    # Make the mutations
+    for i in indexes:
+        # Use random.choice () to select a new_char from a string created
+        # by replacing the current character (text[i]) in the alpha variable
+        # with nothing. This ensures that the new character cannot be the
+        # same as the one we are replacing.
+        new_char = random.choice(alpha.replace(new_text[i], ""))
+        new_text = new_text[:i] + new_char + new_text[i + 1 :]
+
+    print(f'You said: "{args.text}"')
+    print(f'I heard : "{new_text}"')
 
 
 # --------------------------------------------------
